@@ -2,8 +2,8 @@ name: Status Check
 
 on:
   schedule:
-    - cron: "*/1 * * * *"  # Каждые 10 минут
-  workflow_dispatch:
+    - cron: "*/10 * * * *"  # Запуск каждые 10 минут
+  workflow_dispatch:  
 
 jobs:
   ping:
