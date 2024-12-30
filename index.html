@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Project Status</title>
+  <style>
+    body { font-family: Arial, sans-serif; text-align: center; margin: 2em; }
+    .status { font-size: 1.5em; margin-top: 1em; }
+    .up { color: green; }
+    .down { color: red; }
+  </style>
+</head>
+<body>
+  <h1>Project Status</h1>
+  <div id="status" class="status">Loading...</div>
+  <script>
+    fetch('status.json')
+      .then(response => response.json())
+      .then(data => {
+        const statusDiv = document.getElementById('status');
+        if (data.status === 'up') {
+          statusDiv.textContent = 'Service is UP';
+          statusDiv.classList.add('up');
+        } else {
+          statusDiv.textContent = 'Service is DOWN';
+          statusDiv.classList.add('down');
+        }
+      })
+      .catch(error => {
+        document.getElementById('status').textContent = 'Error loading status';
+        console.error(error);
+      });
+  </script>
+</body>
+</html>
