@@ -15,7 +15,7 @@
   <h1>Project Status</h1>
   <div id="status" class="status">Loading...</div>
   <script>
-    fetch('status.json')
+    fetch('https://raw.githubusercontent.com/F1F1FISHKA/status/refs/heads/main/status.json')
       .then(response => response.json())
       .then(data => {
         const statusDiv = document.getElementById('status');
