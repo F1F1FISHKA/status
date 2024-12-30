@@ -3,34 +3,81 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Project Status</title>
+  <title>Service Status</title>
   <style>
-    body { font-family: Arial, sans-serif; text-align: center; margin: 2em; }
-    .status { font-size: 1.5em; margin-top: 1em; }
-    .up { color: green; }
-    .down { color: red; }
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      margin: 2em;
+    }
+    .graph {
+      display: flex;
+      justify-content: center;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .bar {
+      width: 20px;
+      height: 50px;
+      background-color: gray;
+      cursor: pointer;
+      transition: transform 0.2s;
+    }
+    .bar.up {
+      background-color: green;
+    }
+    .bar.down {
+      background-color: red;
+    }
+    .bar:hover {
+      transform: scale(1.2);
+    }
+    .tooltip {
+      position: absolute;
+      background-color: #333;
+      color: #fff;
+      padding: 5px;
+      border-radius: 3px;
+      font-size: 0.8em;
+      visibility: hidden;
+      z-index: 10;
+      transform: translate(-50%, -100%);
+    }
   </style>
 </head>
 <body>
-  <h1>Project Status</h1>
-  <div id="status" class="status">Loading...</div>
+  <h1>Service Status Graph</h1>
+  <div class="graph" id="graph"></div>
+  <div class="tooltip" id="tooltip"></div>
   <script>
-    fetch('https://raw.githubusercontent.com/F1F1FISHKA/status/refs/heads/main/status.json')
+    const STATUS_URL = 'status.json'; // Замените на путь к вашему JSON-файлу
+    const graph = document.getElementById('graph');
+    const tooltip = document.getElementById('tooltip');
+
+    fetch(STATUS_URL)
       .then(response => response.json())
       .then(data => {
-        const statusDiv = document.getElementById('status');
-        if (data.status === 'up') {
-          statusDiv.textContent = 'Service is UP';
-          statusDiv.classList.add('up');
-        } else {
-          statusDiv.textContent = 'Service is DOWN';
-          statusDiv.classList.add('down');
-        }
+        data.forEach(record => {
+          const bar = document.createElement('div');
+          bar.classList.add('bar', record.status);
+          bar.dataset.timestamp = record.timestamp;
+          graph.appendChild(bar);
+        });
+
+        graph.addEventListener('mouseover', event => {
+          if (event.target.classList.contains('bar')) {
+            tooltip.textContent = event.target.dataset.timestamp;
+            tooltip.style.left = `${event.pageX}px`;
+            tooltip.style.top = `${event.pageY}px`;
+            tooltip.style.visibility = 'visible';
+          }
+        });
+
+        graph.addEventListener('mouseout', () => {
+          tooltip.style.visibility = 'hidden';
+        });
       })
-      .catch(error => {
-        document.getElementById('status').textContent = 'Error loading status';
-        console.error(error);
-      });
+      .catch(error => console.error('Error loading status:', error));
   </script>
 </body>
 </html>
