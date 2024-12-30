@@ -16,6 +16,8 @@ except Exception:
 try:
     with open(STATUS_FILE, "r") as f:
         data = json.load(f)
+    if not isinstance(data, list):  # Если файл содержит не список, а объект
+        data = []
 except (FileNotFoundError, json.JSONDecodeError):
     data = []
 
