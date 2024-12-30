@@ -2,7 +2,7 @@ name: Status Check
 
 on:
   schedule:
-    - cron: "*/10 * * * *"  # Каждые 10 минут
+    - cron: "*/1 * * * *"  # Каждые 10 минут
 
 jobs:
   ping:
