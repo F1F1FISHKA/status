@@ -1,3 +1,4 @@
 exclude:
   - status.json
   - ping_check.py
+  - .github/workflows/status-check.yml
