@@ -2,7 +2,7 @@ import requests
 import json
 from datetime import datetime
 
-URL = "https://ccail.ru"  # Адрес для проверки
+URL = "https://matrix.dexoron.su"  # Адрес для проверки
 STATUS_FILE = "status.json"
 MAX_RECORDS = 30
 
