@@ -1,10 +1,6 @@
 [
     {
         "status": "down",
-        "timestamp": "2025-09-04 07:37:11"
-    },
-    {
-        "status": "down",
         "timestamp": "2025-09-04 07:44:38"
     },
     {
@@ -118,5 +114,9 @@
     {
         "status": "down",
         "timestamp": "2025-09-04 15:31:39"
+    },
+    {
+        "status": "down",
+        "timestamp": "2025-09-04 15:45:45"
     }
 ]
